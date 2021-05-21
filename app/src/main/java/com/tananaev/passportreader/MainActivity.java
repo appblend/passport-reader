@@ -18,6 +18,7 @@ package com.tananaev.passportreader;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.nfc.NfcAdapter;
@@ -33,6 +34,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String KEY_PASSPORT_NUMBER = "passportNumber";
     private final static String KEY_EXPIRATION_DATE = "expirationDate";
     private final static String KEY_BIRTH_DATE = "birthDate";
+    private static final String KEY_TAG = "tag";
 
     private Calendar loadDate(EditText editText) {
         Calendar calendar = Calendar.getInstance();
@@ -127,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean encodePhotoToBase64 = false;
     private View mainLayout;
     private View loadingLayout;
+    private View btRead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +164,12 @@ public class MainActivity extends AppCompatActivity {
 
         mainLayout = findViewById(R.id.main_layout);
         loadingLayout = findViewById(R.id.loading_layout);
+        btRead = findViewById(R.id.bt_read);
 
         passportNumberView.setText(preferences.getString(KEY_PASSPORT_NUMBER, null));
         expirationDateView.setText(preferences.getString(KEY_EXPIRATION_DATE, null));
         birthDateView.setText(preferences.getString(KEY_BIRTH_DATE, null));
+
 
         passportNumberView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -210,6 +216,27 @@ public class MainActivity extends AppCompatActivity {
                 getFragmentManager().beginTransaction().add(dialog, null).commit();
             }
         });
+
+        btRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                String passportNumber = preferences.getString(KEY_PASSPORT_NUMBER, null);
+                String expirationDate = convertDate(preferences.getString(KEY_EXPIRATION_DATE, null));
+                String birthDate = convertDate(preferences.getString(KEY_BIRTH_DATE, null));
+                if (passportNumber != null && !passportNumber.isEmpty()
+                        && expirationDate != null && !expirationDate.isEmpty()
+                        && birthDate != null && !birthDate.isEmpty()) {
+                    BACKeySpec bacKey = new BACKey(passportNumber, birthDate, expirationDate);
+                    Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                    if ( tag != null) {
+                        new ReadTask(IsoDep.get(tag), bacKey).execute();
+                        mainLayout.setVisibility(View.GONE);
+                        loadingLayout.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -222,7 +249,15 @@ public class MainActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             String[][] filter = new String[][]{new String[]{"android.nfc.tech.IsoDep"}};
-            adapter.enableForegroundDispatch(this, pendingIntent, null, filter);
+
+            IntentFilter ntech1 = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+            IntentFilter ntech2 = new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED);
+            IntentFilter ntech3 = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+            IntentFilter[] mFilters = new IntentFilter[] {
+                    ntech1,ntech2,ntech3
+            };
+
+            adapter.enableForegroundDispatch(this, pendingIntent, null, null);
         }
 
         if (passportNumberFromIntent) {
@@ -258,9 +293,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
+        Log.e(TAG, "on New Intent Action" + intent.getAction());
+        Log.e(TAG, "on New Intent" + intent.getExtras().getParcelable(NfcAdapter.EXTRA_TAG));
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Toast.makeText(this, "NDEF Discovered", Toast.LENGTH_LONG).show();
+        }
+        if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())
+                    || NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             Tag tag = intent.getExtras().getParcelable(NfcAdapter.EXTRA_TAG);
-            if (Arrays.asList(tag.getTechList()).contains("android.nfc.tech.IsoDep")) {
+            Log.e(TAG, "tag = " + tag);
+            if (Arrays.asList(tag.getTechList()).contains("android.nfc.tech.Ndef")) {
+                Toast.makeText(this, "NDEF Discovered : " +tag.toString(), Toast.LENGTH_LONG).show();
+            }else if (Arrays.asList(tag.getTechList()).contains("android.nfc.tech.IsoDep")) {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 String passportNumber = preferences.getString(KEY_PASSPORT_NUMBER, null);
                 String expirationDate = convertDate(preferences.getString(KEY_EXPIRATION_DATE, null));
@@ -547,6 +591,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(ResultActivity.KEY_GENDER, mrzInfo.getGender().toString());
                 intent.putExtra(ResultActivity.KEY_STATE, mrzInfo.getIssuingState());
                 intent.putExtra(ResultActivity.KEY_NATIONALITY, mrzInfo.getNationality());
+                intent.putExtra(ResultActivity.KEY_DOB, mrzInfo.getDateOfBirth());
+                intent.putExtra(ResultActivity.KEY_DATE_OF_EXPIRE, mrzInfo.getDateOfExpiry());
+
 
                 String passiveAuthStr = "";
                 if(passiveAuthSuccess) {

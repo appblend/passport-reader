@@ -32,6 +32,8 @@ public class ResultActivity extends AppCompatActivity {
     public static final String KEY_PHOTO_BASE64 = "photoBase64";
     public static final String KEY_PASSIVE_AUTH = "passiveAuth";
     public static final String KEY_CHIP_AUTH = "chipAuth";
+    public static final String KEY_DOB = "date of birth";
+    public static final String KEY_DATE_OF_EXPIRE = "expired date";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class ResultActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.output_nationality)).setText(getIntent().getStringExtra(KEY_NATIONALITY));
         ((TextView) findViewById(R.id.output_passive_auth)).setText(getIntent().getStringExtra(KEY_PASSIVE_AUTH));
         ((TextView) findViewById(R.id.output_chip_auth)).setText(getIntent().getStringExtra(KEY_CHIP_AUTH));
+        ((TextView) findViewById(R.id.output_dob)).setText(getIntent().getStringExtra(KEY_DOB));
+        ((TextView) findViewById(R.id.output_expired_date)).setText(getIntent().getStringExtra(KEY_DATE_OF_EXPIRE));
 
         if (getIntent().hasExtra(KEY_PHOTO)) {
             ((ImageView) findViewById(R.id.view_photo)).setImageBitmap((Bitmap) getIntent().getParcelableExtra(KEY_PHOTO));

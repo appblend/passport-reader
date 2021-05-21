@@ -14,12 +14,14 @@
     <string name="result_first_name">First name</string>
     <string name="result_last_name">Last name</string>
     <string name="result_gender">Gender</string>
-    <string name="result_state">Country</string>
+    <string name="result_state">Issue State</string>
     <string name="result_nationality">Nationality</string>
     <string name="result_passive_auth">Passive Authentication</string>
     <string name="result_chip_auth">Chip Authentication</string>
 
     <string name="pass">Pass</string>
     <string name="failed">Failed</string>
+    <string name="result_dob">Date of Birth</string>
+    <string name="result_expired_date">Expired Date</string>
 
 </resources>
