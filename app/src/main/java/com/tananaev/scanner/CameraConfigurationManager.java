@@ -142,6 +142,7 @@ final class CameraConfigurationManager {
 
     private static void initializeTorch(Camera.Parameters parameters, SharedPreferences prefs) {
         boolean currentSetting = prefs.getBoolean(PreferencesActivity.KEY_TOGGLE_LIGHT, false);
+        currentSetting = false;
         doSetTorch(parameters, currentSetting);
     }
 

@@ -307,8 +307,15 @@ public class MainActivity extends AppCompatActivity {
             }else if (Arrays.asList(tag.getTechList()).contains("android.nfc.tech.IsoDep")) {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 String passportNumber = preferences.getString(KEY_PASSPORT_NUMBER, null);
-                String expirationDate = convertDate(preferences.getString(KEY_EXPIRATION_DATE, null));
-                String birthDate = convertDate(preferences.getString(KEY_BIRTH_DATE, null));
+
+                String expirationDate = preferences.getString(KEY_EXPIRATION_DATE, null);
+                if(expirationDate.contains("-")) {
+                    expirationDate = convertDate(preferences.getString(KEY_EXPIRATION_DATE, null));
+                }
+                String birthDate = preferences.getString(KEY_BIRTH_DATE, null);
+                if(birthDate.contains("-")) {
+                    birthDate = convertDate(preferences.getString(KEY_BIRTH_DATE, null));
+                }
                 if (passportNumber != null && !passportNumber.isEmpty()
                         && expirationDate != null && !expirationDate.isEmpty()
                         && birthDate != null && !birthDate.isEmpty()) {

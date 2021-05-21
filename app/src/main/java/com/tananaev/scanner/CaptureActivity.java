@@ -139,7 +139,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     /**
      * Whether the light should be initially activated by default.
      */
-    public static final boolean DEFAULT_TOGGLE_LIGHT = true;
+    public static final boolean DEFAULT_TOGGLE_LIGHT = false;
 
 
     /**
@@ -828,9 +828,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                 try {
                     MRZInfo mrzInfo = new MRZInfo(result);
                     if (mrzInfo.toString().equals(result)) {
-                        Toast.makeText(this, mrzInfo.toString(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(this, mrzInfo.toString(), Toast.LENGTH_LONG).show();
                         Intent returnIntent = new Intent();
-                        returnIntent.putExtra(MRZ_RESULT, mrzInfo);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(MRZ_RESULT, mrzInfo);
+                        returnIntent.putExtras(bundle);
                         setResult(Activity.RESULT_OK, returnIntent);
                         finish();
                     }
