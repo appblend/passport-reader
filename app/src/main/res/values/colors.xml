@@ -3,4 +3,69 @@
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00796B</color>
     <color name="colorAccent">#536DFE</color>
+    <color name="help_button_view">#ffcccccc</color> <!-- help button view background color -->
+    <color name="help_view">#ff404040</color> <!-- background color for entire help view -->
+    <color name="result_minor_text">#ffc0c0c0</color> <!-- source language text/label text color. For example, "OCR English" -->
+    <color name="result_text">#ffffffff</color> <!-- OCR result text color -->
+    <color name="result_view">#b0000000</color> <!-- result view background color -->
+    <color name="status_text">#ffffffff</color> <!-- status_view_top/status_view_bottom text color -->
+    <color name="status_top_text_background">#ffffffff</color> <!-- status_view_top text background color -->
+    <color name="translation_text">#00ccff</color> <!-- translation text color -->
+    <color name="viewfinder_corners">#ffffffff</color> <!-- four corner elements for viewfinder -->
+    <color name="viewfinder_frame">#ffd6d6d6</color> <!-- viewfinder rectangle -->
+    <color name="viewfinder_mask">#60000000</color>  <!-- viewfinder exterior darkened area -->
+    <!-- Screens background color-->
+
+    <color name="home_bg">#7B990000</color>
+    <!-- dots inactive colors -->
+
+    <!-- dots active colors -->
+
+    <!-- Deep Purple -->
+
+    <!-- Red -->
+
+    <!-- Pink -->
+
+    <!-- Indigo -->
+
+    <!-- Blue -->
+
+    <!-- Light Blue -->
+
+    <!-- Cyan -->
+
+    <!-- Teal -->
+
+    <!-- Green -->
+    <color name="material_green_500">#4cae4e</color>
+
+    <!-- Light Green -->
+
+    <!-- Lime -->
+
+    <!-- Light Yellow -->
+
+    <!-- Yellow -->
+
+    <!-- Orange -->
+
+    <!-- Deep Orange -->
+
+
+    <!-- Brown -->
+    <!-- Grey -->
+    <color name="material_grey_50">#f9fafa</color>
+    <color name="material_grey_100">#f4f5f5</color>
+    <color name="material_grey_300">#e0e0e0</color>
+    <color name="material_grey_600">#757575</color>
+    <color name="material_grey_800">#424242</color>
+    <color name="material_grey_900">#202020</color>
+
+    <!-- Blue Grey -->
+    <color name="material_blue_grey_800">#37474f</color>
+    <color name="material_blue_grey_900">#263238</color>
+
+    <!-- Brown -->
+    <color name="white">#FFFFFF</color>
 </resources>

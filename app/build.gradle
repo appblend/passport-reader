@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId 'com.tananaev.passportreader'
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 16
         versionName "2.1"
@@ -36,4 +36,9 @@ dependencies {
     implementation 'com.github.mhshams:jnbis:1.1.0'
     implementation 'org.bouncycastle:bcpkix-jdk15on:1.65'
     implementation 'commons-io:commons-io:2.6'
+
+    // Scanner
+    implementation 'com.rmtheis:tess-two:6.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 }
