@@ -12,6 +12,10 @@ android {
         versionName "2.1"
         multiDexEnabled = true
     }
+    lintOptions {
+        abortOnError false
+    }
+
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
@@ -22,6 +26,41 @@ android {
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
+    }
+    signingConfigs {
+        debug {
+            keyAlias 'Traversal'
+            keyPassword 'traversal2018'
+            storeFile file('releasekey/release.jks')
+            storePassword 'traversal2018'
+        }
+
+        release {
+
+            keyAlias 'Traversal'
+            keyPassword 'traversal2018'
+            storeFile file('releasekey/release.jks')
+            storePassword 'traversal2018'
+
+        }
+    }
+    buildTypes {
+        release {
+            debuggable true
+            minifyEnabled false
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            splits.abi.enable = false
+            splits.density.enable = false
+            minifyEnabled false
+            useProguard false
+            ext.alwaysUpdateBuildId = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
     }
 }
 

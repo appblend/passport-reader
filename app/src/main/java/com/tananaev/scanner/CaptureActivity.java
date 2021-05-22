@@ -240,10 +240,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         checkFirstLaunch();
 
         this.requestPermission();
-
-        if (isFirstLaunch) {
-            setDefaultPreferences();
-        }
+        setDefaultPreferences();
+//        if (isFirstLaunch) {
+//            setDefaultPreferences();
+//        }
 
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

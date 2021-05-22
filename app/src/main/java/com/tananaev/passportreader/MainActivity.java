@@ -220,21 +220,27 @@ public class MainActivity extends AppCompatActivity {
         btRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                String passportNumber = preferences.getString(KEY_PASSPORT_NUMBER, null);
-                String expirationDate = convertDate(preferences.getString(KEY_EXPIRATION_DATE, null));
-                String birthDate = convertDate(preferences.getString(KEY_BIRTH_DATE, null));
-                if (passportNumber != null && !passportNumber.isEmpty()
-                        && expirationDate != null && !expirationDate.isEmpty()
-                        && birthDate != null && !birthDate.isEmpty()) {
-                    BACKeySpec bacKey = new BACKey(passportNumber, birthDate, expirationDate);
-                    Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                    if ( tag != null) {
-                        new ReadTask(IsoDep.get(tag), bacKey).execute();
-                        mainLayout.setVisibility(View.GONE);
-                        loadingLayout.setVisibility(View.VISIBLE);
-                    }
-                }
+//                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+//                String passportNumber = preferences.getString(KEY_PASSPORT_NUMBER, null);
+//                String expirationDate = convertDate(preferences.getString(KEY_EXPIRATION_DATE, null));
+//                if(expirationDate.contains("-")) {
+//                    expirationDate = convertDate(preferences.getString(KEY_EXPIRATION_DATE, null));
+//                }
+//                String birthDate = preferences.getString(KEY_BIRTH_DATE, null);
+//                if(birthDate.contains("-")) {
+//                    birthDate = convertDate(preferences.getString(KEY_BIRTH_DATE, null));
+//                }
+//                if (passportNumber != null && !passportNumber.isEmpty()
+//                        && expirationDate != null && !expirationDate.isEmpty()
+//                        && birthDate != null && !birthDate.isEmpty()) {
+//                    BACKeySpec bacKey = new BACKey(passportNumber, birthDate, expirationDate);
+//                    Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+//                    if ( tag != null) {
+//                        new ReadTask(IsoDep.get(tag), bacKey).execute();
+//                        mainLayout.setVisibility(View.GONE);
+//                        loadingLayout.setVisibility(View.VISIBLE);
+//                    }
+//                }
             }
         });
     }

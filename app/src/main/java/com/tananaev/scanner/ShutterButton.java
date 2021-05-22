@@ -22,6 +22,8 @@ import android.util.AttributeSet;
 import android.view.SoundEffectConstants;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 
 /**
  * A button designed to be used for the on-screen shutter button.
@@ -30,7 +32,7 @@ import android.widget.ImageView;
  * 
  * The code for this class was adapted from the ZXing project: http://code.google.com/p/zxing
  */
-public class ShutterButton extends ImageView {
+public class ShutterButton extends AppCompatImageView {
 	/**
 	 * A callback to be invoked when a ShutterButton's pressed state changes.
 	 */

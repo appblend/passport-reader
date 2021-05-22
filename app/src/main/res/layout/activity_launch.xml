@@ -17,7 +17,7 @@
         android:layout_margin="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Scan Passport MRZ"
+        android:text="Click me to Scan Passport MRZ"
         />
     <Button
         android:id="@+id/bt_passport_reader"
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/bt_start_mrz_scan"
         android:text="Passport Reader"
+        android:visibility="gone"
         />
     </LinearLayout>
 
