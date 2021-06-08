@@ -23,5 +23,6 @@
     <string name="failed">Failed</string>
     <string name="result_dob">Date of Birth</string>
     <string name="result_expired_date">Expired Date</string>
+    <string name="result_place_of_birth">Place of birth</string>
 
 </resources>

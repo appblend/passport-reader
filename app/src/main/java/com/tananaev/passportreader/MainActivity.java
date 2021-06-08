@@ -57,6 +57,7 @@ import org.jmrtd.lds.ChipAuthenticationPublicKeyInfo;
 import org.jmrtd.lds.SODFile;
 import org.jmrtd.lds.CardAccessFile;
 import org.jmrtd.lds.SecurityInfo;
+import org.jmrtd.lds.icao.DG11File;
 import org.jmrtd.lds.icao.DG14File;
 import org.jmrtd.lds.icao.DG1File;
 import org.jmrtd.lds.icao.DG2File;
@@ -87,6 +88,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -400,6 +402,7 @@ public class MainActivity extends AppCompatActivity {
 
         private DG1File dg1File;
         private DG2File dg2File;
+        private DG11File dg11File;
         private DG14File dg14File;
         private SODFile sodFile;
         private String imageBase64;
@@ -551,6 +554,9 @@ public class MainActivity extends AppCompatActivity {
                 CardFileInputStream sodIn = service.getInputStream(PassportService.EF_SOD);
                 sodFile = new SODFile(sodIn);
 
+                CardFileInputStream dg11In = service.getInputStream(PassportService.EF_DG11);
+                dg11File = new DG11File(dg11In);
+                Log.e(TAG, "Dg11 place of birth " + dg11File.getPlaceOfBirth());
                 // We perform Chip Authentication using Data Group 14
                 doChipAuth(service);
 
@@ -607,6 +613,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(ResultActivity.KEY_DOB, mrzInfo.getDateOfBirth());
                 intent.putExtra(ResultActivity.KEY_DATE_OF_EXPIRE, mrzInfo.getDateOfExpiry());
 
+                if(null != dg11File && null != dg11File.getPlaceOfBirth()) {
+                    intent.putExtra(ResultActivity.KEY_PLACE_OF_BIRTH, Arrays.toString(dg11File.getPlaceOfBirth().toArray()));
+                }
 
                 String passiveAuthStr = "";
                 if(passiveAuthSuccess) {

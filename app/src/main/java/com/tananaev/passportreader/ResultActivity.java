@@ -34,6 +34,7 @@ public class ResultActivity extends AppCompatActivity {
     public static final String KEY_CHIP_AUTH = "chipAuth";
     public static final String KEY_DOB = "date of birth";
     public static final String KEY_DATE_OF_EXPIRE = "expired date";
+    public static final String KEY_PLACE_OF_BIRTH = "place_of_birth";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class ResultActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.output_chip_auth)).setText(getIntent().getStringExtra(KEY_CHIP_AUTH));
         ((TextView) findViewById(R.id.output_dob)).setText(getIntent().getStringExtra(KEY_DOB));
         ((TextView) findViewById(R.id.output_expired_date)).setText(getIntent().getStringExtra(KEY_DATE_OF_EXPIRE));
+        ((TextView) findViewById(R.id.output_place_of_birth)).setText(getIntent().getStringExtra(KEY_PLACE_OF_BIRTH));
 
         if (getIntent().hasExtra(KEY_PHOTO)) {
             ((ImageView) findViewById(R.id.view_photo)).setImageBitmap((Bitmap) getIntent().getParcelableExtra(KEY_PHOTO));

@@ -81,6 +81,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/result_expired_date"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/result_place_of_birth"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
                 <TextView
                     android:visibility="gone"
                     android:layout_width="wrap_content"
@@ -150,6 +157,13 @@
 
                 <TextView
                     android:id="@+id/output_expired_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    tools:text="New Zealand" />
+
+                <TextView
+                    android:id="@+id/output_place_of_birth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
